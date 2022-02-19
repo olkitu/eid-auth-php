@@ -6,6 +6,7 @@ curl -s http://proxy.fineid.fi/arl/vrkroota.crl -o /etc/ssl/eid/crl/vrkroota.crl
 curl -s http://proxy.fineid.fi/crl/dvvroot3ec.crl -o /etc/ssl/eid/crl/dvvroot3ec.crl
 curl -s http://proxy.fineid.fi/arl/vrkroot2a.crl -o /etc/ssl/eid/crl/vrkroot2a.crl
 curl -s http://proxy.fineid.fi/crl/dvvroot3rc.crl -o /etc/ssl/eid/crl/dvvroot3rc.crl
+curl -s http://c.sk.ee/EE-GovCA2018.crl -o /etc/ssl/eid/crl/EE-GovCA2018.crl
 
 cd /etc/ssl/eid/crl && for i in *.crl; do openssl crl -in $i -inform DER -out $i; ln -sf $i `openssl crl -noout -hash -in $i`.0; done
 
