@@ -11,7 +11,7 @@ RUN apt update && apt-get upgrade -y && apt install wget -y \
     && cd /etc/ssl/eid/ca && for i in *.crt; do ln -s $i `openssl x509 -noout -hash -in $i`.0; done
 
 COPY conf/apache.conf /etc/apache2/sites-available/000-default.conf
-COPY site/* /var/www/html/
+COPY site /var/www/html/
 
 EXPOSE 443
 
