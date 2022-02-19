@@ -1,14 +1,24 @@
 #!/bin/sh
 set -e
 
-# Download CRL lists
-curl -s http://proxy.fineid.fi/arl/vrkroota.crl -o /etc/ssl/eid/crl/vrkroota.crl
-curl -s http://proxy.fineid.fi/crl/dvvroot3ec.crl -o /etc/ssl/eid/crl/dvvroot3ec.crl
-curl -s http://proxy.fineid.fi/arl/vrkroot2a.crl -o /etc/ssl/eid/crl/vrkroot2a.crl
-curl -s http://proxy.fineid.fi/crl/dvvroot3rc.crl -o /etc/ssl/eid/crl/dvvroot3rc.crl
-curl -s http://c.sk.ee/EE-GovCA2018.crl -o /etc/ssl/eid/crl/EE-GovCA2018.crl
+cd /etc/ssl/eid/crl
 
-cd /etc/ssl/eid/crl && for i in *.crl; do openssl crl -in $i -inform DER -out $i; ln -sf $i `openssl crl -noout -hash -in $i`.0; done
+# Download CRL lists
+curl -s https://dvv.fineid.fi/api/v1/cas/702/revocationlist -o vrkroot2c.crl
+curl -s https://dvv.fineid.fi/api/v1/cas/711/revocationlist -o dvvroot3rc.crl
+curl -s https://dvv.fineid.fi/api/v1/cas/712/revocationlist -o dvvroot3ec.crl
+curl -s https://dvv.fineid.fi/api/v1/cas/101/revocationlist -o vrkcqc2c.crl
+curl -s https://dvv.fineid.fi/api/v1/cas/102/revocationlist -o vrkcqc3c.crl
+curl -s https://dvv.fineid.fi/api/v1/cas/112/revocationlist -o dvvcqc4ec.crl
+curl -s https://dvv.fineid.fi/api/v1/cas/111/revocationlist -o dvvcqc4rc.crl
+
+curl -s http://c.sk.ee/EE-GovCA2018.crl -o EE-GovCA2018.crl
+
+
+
+for i in *.crl; do openssl crl -in $i -inform DER -out $i; ln -sf $i `openssl crl -noout -hash -in $i`.r0; done
+
+cd /
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
