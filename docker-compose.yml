@@ -1,0 +1,11 @@
+version: "2.4"
+services:
+  eidauth:
+    build: .
+    image: olkitu/eid-auth-sso
+    ports:
+      - "8443:443"
+    volumes:
+    - ./site:/var/www/html
+    environment:
+      DOMAIN_NAME: localhost
