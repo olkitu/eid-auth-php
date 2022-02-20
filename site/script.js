@@ -18,8 +18,7 @@ function doLogin() {
         error: function(data) {
             $("#output").html((JSON.stringify({"status": "error", "message": "Login error, please try disconnect card from reader, reset and try again."})));
             console.log(data);
-        },
-        timeout: 3000
+        }
     });
 }
 
