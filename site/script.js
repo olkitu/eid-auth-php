@@ -11,9 +11,6 @@ function doLogin() {
         url: '/auth/login',
         type: 'GET',
         dataType: 'json',
-        xhr: function() {
-            
-        },
         success: function(data) {
             console.log(data);
             $("#output").html((JSON.stringify(data)));
