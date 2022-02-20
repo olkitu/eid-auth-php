@@ -18,8 +18,8 @@ function doLogin() {
             console.log(data);
             $("#output").html((JSON.stringify(data)));
         },
-        error: function(xhr) {
-            $("#output").html((JSON.stringify({"status": "error", "message": "error"})));
+        error: function(data) {
+            $("#output").html((JSON.stringify({"status": "error", "message": "Login error, please try disconnect card from reader, reset and try again."})));
             console.log(data);
         },
         timeout: 3000
@@ -35,8 +35,9 @@ function doReset() {
         success: function(data) {
             console.log(data);
         },
-        error: function() {
+        error: function(data) {
             $("#output").html((JSON.stringify({"status": "success"})));
+            console.log(data);
         },
         timeout: 1000
     });
