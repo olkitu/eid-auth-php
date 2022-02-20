@@ -5,6 +5,7 @@
             "status" => "success",
             "data" => array(
                 "cn" => $_SERVER["SSL_CLIENT_S_DN_CN"],
+                "dn" => $_SERVER["SSL_CLIENT_S_DN"],
                 "surname" => $_SERVER["SSL_CLIENT_S_DN_S"],
                 "givenname" => $_SERVER["SSL_CLIENT_S_DN_G"],
                 "email" => $_SERVER["SSL_CLIENT_SAN_Email_0"],
