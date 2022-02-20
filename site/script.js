@@ -11,12 +11,15 @@ function doLogin() {
         url: '/auth/login',
         type: 'GET',
         dataType: 'json',
+        xhr: function() {
+            
+        },
         success: function(data) {
             console.log(data);
             $("#output").html((JSON.stringify(data)));
         },
-        error: function(data) {
-            $("#output").html((JSON.stringify({"status": "error"})));
+        error: function(xhr) {
+            $("#output").html((JSON.stringify({"status": "error", "message": "error"})));
             console.log(data);
         },
         timeout: 3000
@@ -32,9 +35,8 @@ function doReset() {
         success: function(data) {
             console.log(data);
         },
-        error: function(data) {
-            $("#output").html((JSON.stringify({"status": "success", "message": "Reset done"})));
-            console.log(data);
+        error: function() {
+            $("#output").html((JSON.stringify({"status": "success"})));
         },
         timeout: 1000
     });

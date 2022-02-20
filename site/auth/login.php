@@ -3,7 +3,7 @@
     if(isset($_SERVER["SSL_CLIENT_S_DN_CN"])) {
         echo json_encode(array(
             "status" => "success",
-            "data" => array(
+            "message" => array(
                 "cn" => $_SERVER["SSL_CLIENT_S_DN_CN"],
                 "dn" => $_SERVER["SSL_CLIENT_S_DN"],
                 "surname" => $_SERVER["SSL_CLIENT_S_DN_S"],
@@ -18,7 +18,7 @@
         ));
     }
     else {
-        echo json_encode(array("status" => "error"));
+        echo json_encode(array("status" => "error", "message" => "No certificate found, try again"));
     }
     
 ?>
