@@ -5,6 +5,7 @@ cd /etc/ssl/eid/crl
 #
 # Download CRL lists
 #
+echo "Downloading CRL lists"
 
 # https://dvv.fineid.fi/en/certificate-index
 curl -s https://dvv.fineid.fi/api/v1/cas/702/revocationlist -o vrkroot2c.crl
@@ -17,6 +18,7 @@ curl -s https://dvv.fineid.fi/api/v1/cas/111/revocationlist -o dvvcqc4rc.crl
 
 # https://www.skidsolutions.eu/en/repository/CRL/
 curl -s https://c.sk.ee/EE-GovCA2018.crl -o EE-GovCA2018.crl
+curl -s https://c.sk.ee/esteid2018.crl -o esteid2018.crl
 
 # https://www.cartaidentita.interno.gov.it/fornitori-di-servizi/certification-autority/
 curl -s https://ldap.cie.interno.gov.it/ciesubca1.crl -o ciesubca1.crl
@@ -28,6 +30,8 @@ curl -s https://download.gsb.bund.de/BSI/crl/MDS_CRL.crl -o MDS_CRL.crl
 for i in *.crl; do openssl crl -in $i -inform DER -out $i; ln -sf $i `openssl crl -noout -hash -in $i`.r0; done
 
 cd /
+
+echo "Start Apache"
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
