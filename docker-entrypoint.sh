@@ -8,26 +8,36 @@ cd /etc/ssl/eid/crl
 echo "Downloading CRL lists"
 
 # https://dvv.fineid.fi/en/certificate-index
-curl -s https://dvv.fineid.fi/api/v1/cas/702/revocationlist -o vrkroot2c.crl
-curl -s https://dvv.fineid.fi/api/v1/cas/711/revocationlist -o dvvroot3rc.crl
-curl -s https://dvv.fineid.fi/api/v1/cas/712/revocationlist -o dvvroot3ec.crl
-curl -s https://dvv.fineid.fi/api/v1/cas/101/revocationlist -o vrkcqc2c.crl
-curl -s https://dvv.fineid.fi/api/v1/cas/102/revocationlist -o vrkcqc3c.crl
-curl -s https://dvv.fineid.fi/api/v1/cas/112/revocationlist -o dvvcqc4ec.crl
-curl -s https://dvv.fineid.fi/api/v1/cas/111/revocationlist -o dvvcqc4rc.crl
+DVV_CRL_URL="http://proxy.fineid.fi/crl/"
+DVV_CRL_LIST=("vrkroot2c.crl" "dvvroot3rc.crl" "dvvroot3ec.crl" "vrkcqc2c.crl" "vrkcqc3c.crl" "dvvcqc4rc.crl")
+
+for CRL_FILE in ${DVV_CRL_LIST[@]}; do
+        echo "Downloading $CRL_FILE"
+        curl -s $DVV_CRL_URL/$CRL_FILE -o $CRL_FILE
+done
 
 # https://www.skidsolutions.eu/en/repository/CRL/
+echo "Download EE-GovCA2018.crl"
 curl -s https://c.sk.ee/EE-GovCA2018.crl -o EE-GovCA2018.crl
+echo "Download esteid2018.crl"
 curl -s https://c.sk.ee/esteid2018.crl -o esteid2018.crl
 
 # https://www.cartaidentita.interno.gov.it/fornitori-di-servizi/certification-autority/
+echo "Download ciesubca1.crl"
 curl -s https://ldap.cie.interno.gov.it/ciesubca1.crl -o ciesubca1.crl
+echo "Download ciesubca002.crl"
 curl -s https://ldap.cie.interno.gov.it/ciesubca002.crl -o ciesubca002.crl
 
 # https://www.bsi.bund.de/EN/Topics/ElectrIDDocuments/CVCAeID/CVCAeID_node.html
+echo "Download MDS_CRL.crl"
 curl -s https://download.gsb.bund.de/BSI/crl/MDS_CRL.crl -o MDS_CRL.crl
 
-for i in *.crl; do openssl crl -in $i -inform DER -out $i; ln -sf $i `openssl crl -noout -hash -in $i`.r0; done
+for i in *.crl;
+do
+        echo "Convert $i to DER format"
+        openssl crl -in $i -inform DER -out $i
+        ln -sf $i `openssl crl -noout -hash -in $i`.r0;
+done
 
 cd /
 
