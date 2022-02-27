@@ -13,10 +13,14 @@ function doLogin() {
         dataType: 'json',
         success: function(data) {
             console.log(data);
-            $("#output").html("CN: " + data.message.cn + "<br> Surname: " + data.message.surname + "<br> Given name: " + data.message.givenname + "<br> Email: " + data.message.email + "<br> Valid: " + data.message.valid.from + " - " + data.message.valid.to + "<br> Country: " + data.message.country);
+            if(data.status == "success") {
+                $("#output").html("CN: " + data.message.cn + "<br> Surname: " + data.message.surname + "<br> Given name: " + data.message.givenname + "<br> Email: " + data.message.email + "<br> Valid: " + data.message.valid.from + " - " + data.message.valid.to + "<br> Country: " + data.message.country);
+            } else {
+                $("#output").html(data.message);
+            }
         },
         error: function(data) {
-            $("#output").html("Login error, please try disconnect card from reader, reset and try again.");
+            $("#output").html("Login failed. This could happend when certificate validation failed or it is expired. Try disconnect card from reader, reset and try again.");
             console.log(data);
         }
     });

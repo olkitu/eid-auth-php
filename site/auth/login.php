@@ -18,7 +18,8 @@
         ));
     }
     else {
-        echo json_encode(array("status" => "error", "message" => "No certificate found, try again"));
+        header('HTTP/1.1 403 Forbidden');
+        echo json_encode(array("status" => "error", "message" => "Login failed. This could happend when certificate validation failed or it is expired."));
     }
     
 ?>
