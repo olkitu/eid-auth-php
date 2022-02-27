@@ -1,4 +1,4 @@
-# Eid Auth Test Site
+# eID Auth Test Site
 
 Support login with Estonian and Finnish ID cards
 

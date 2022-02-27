@@ -17,19 +17,19 @@ for CRL_FILE in ${DVV_CRL_LIST[@]}; do
 done
 
 # https://www.skidsolutions.eu/en/repository/CRL/
-echo "Download EE-GovCA2018.crl"
+echo "Downloading EE-GovCA2018.crl"
 curl -s https://c.sk.ee/EE-GovCA2018.crl -o EE-GovCA2018.crl
-echo "Download esteid2018.crl"
+echo "Downloading esteid2018.crl"
 curl -s https://c.sk.ee/esteid2018.crl -o esteid2018.crl
 
 # https://www.cartaidentita.interno.gov.it/fornitori-di-servizi/certification-autority/
-echo "Download ciesubca1.crl"
+echo "Downloading ciesubca1.crl"
 curl -s https://ldap.cie.interno.gov.it/ciesubca1.crl -o ciesubca1.crl
-echo "Download ciesubca002.crl"
+echo "Downloading ciesubca002.crl"
 curl -s https://ldap.cie.interno.gov.it/ciesubca002.crl -o ciesubca002.crl
 
 # https://www.bsi.bund.de/EN/Topics/ElectrIDDocuments/CVCAeID/CVCAeID_node.html
-echo "Download MDS_CRL.crl"
+echo "Downloading MDS_CRL.crl"
 curl -s https://download.gsb.bund.de/BSI/crl/MDS_CRL.crl -o MDS_CRL.crl
 
 for i in *.crl;

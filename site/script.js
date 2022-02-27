@@ -13,10 +13,10 @@ function doLogin() {
         dataType: 'json',
         success: function(data) {
             console.log(data);
-            $("#output").html((JSON.stringify(data)));
+            $("#output").html("CN: " + data.message.cn + "<br> Surname: " + data.message.surname + "<br> Given name: " + data.message.givenname + "<br> Email: " + data.message.email + "<br> Valid: " + data.message.valid.from + " - " + data.message.valid.to + "<br> Country: " + data.message.country);
         },
         error: function(data) {
-            $("#output").html((JSON.stringify({"status": "error", "message": "Login error, please try disconnect card from reader, reset and try again."})));
+            $("#output").html("Login error, please try disconnect card from reader, reset and try again.");
             console.log(data);
         }
     });
@@ -32,7 +32,7 @@ function doReset() {
             console.log(data);
         },
         error: function(data) {
-            $("#output").html((JSON.stringify({"status": "success"})));
+            $("#output").html("Reset success");
             console.log(data);
         },
         timeout: 1000

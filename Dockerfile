@@ -6,7 +6,7 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY eid /etc/ssl/eid/
 
 RUN apt update && apt-get upgrade -y && apt install wget -y \
-    && a2enmod ssl rewrite \
+    && a2enmod ssl rewrite setenvif headers \
     && mkdir -p /etc/ssl/eid \
     && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     && sed -i -e 's/expose_php = On/expose_php = Off/' /usr/local/etc/php/php.ini \
@@ -19,3 +19,4 @@ EXPOSE 443
 
 ENTRYPOINT [ "bash", "/docker-entrypoint.sh" ]
 CMD [ "apache2-foreground" ]
+HEALTHCHECK --interval=1m --timeout=3s CMD curl -f http://localhost:80/health_check.txt || exit 1
