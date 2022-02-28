@@ -32,6 +32,9 @@ curl -s https://ldap.cie.interno.gov.it/ciesubca002.crl -o ciesubca002.crl
 echo "Downloading MDS_CRL.crl"
 curl -s https://download.gsb.bund.de/BSI/crl/MDS_CRL.crl -o MDS_CRL.crl
 
+# https://www.nsc.vrm.lt/downloads_en.htm
+curl -s http://nsc.vrm.lt/cdp/ADIC_Root_CA.crl -o ADIC_Root_CA.crl
+
 for i in *.crl;
 do
         echo "Convert $i to DER format"
